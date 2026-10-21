@@ -11,14 +11,13 @@
      ======================================================= */
   var CONFIG = {
     nome: 'Adam Gabriel',
-    // ↓↓↓ TROQUE PELOS SEUS DADOS ↓↓↓
-    email: 'seu-email@exemplo.com',
-    github: 'https://github.com/SEU_USUARIO',
-    linkedin: 'https://linkedin.com/in/SEU_USUARIO',
-    linkedinLabel: 'linkedin.com/in/SEU_USUARIO',
-    githubLabel: 'github.com/SEU_USUARIO',
-    // (deixe vazio '' para a linha não aparecer)
-    localidade: ''
+    email: 'adamgabriel404@gmail.com',
+    github: 'https://github.com/Origin-Adam',
+    githubLabel: 'github.com/Origin-Adam',
+    repos: 'https://github.com/Origin-Adam?tab=repositories',
+    linkedin: 'https://www.linkedin.com/in/adam-gabriel-aa47402a7/',
+    linkedinLabel: 'linkedin.com/in/adam-gabriel-aa47402a7',
+    localidade: 'Salvador, BA'
   };
 
   /* ===================== 2. TEMA ===================== */
@@ -139,9 +138,9 @@
 
   var LINHAS = [
     { t: 'p', v: '$ whoami' },
-    { t: 'm', v: 'adam.gabriel — analista de sistemas' },
+    { t: 'm', v: 'adam.gabriel — analista de e-commerce' },
     { t: 'p', v: '$ cat stack.txt' },
-    { t: 's', v: 'n8n · QA · SQL · APIs · Git' },
+    { t: 's', v: 'e-commerce · n8n · QA · SQL · APIs' },
     { t: 'm', v: 'Godot · Unity · Unreal Engine 5' },
     { t: 'p', v: '$ echo $mission' },
     { t: 'g', v: '"automatizar o repetitivo, entregar o confiável"' },
@@ -212,35 +211,23 @@
   }
 
   /* ===================== 8. APLICAR DADOS DO CONFIG NO HTML ===================== */
-  var emailLink = document.getElementById('email-link');
-  if (emailLink && CONFIG.email) {
-    emailLink.textContent = CONFIG.email;
-    emailLink.setAttribute('href', 'mailto:' + CONFIG.email);
-  }
+  /* Cada link que depende do CONFIG tem data-link="tipo" no index.html.
+     Se o tipo tiver "text", o rótulo visível também é sobrescrito. */
+  var LINKS = {
+    'email-main':   { href: 'mailto:' + CONFIG.email,     text: CONFIG.email },
+    'email-hero':   { href: 'mailto:' + CONFIG.email,     text: null },
+    'github':       { href: CONFIG.github,               text: CONFIG.githubLabel },
+    'github-hero':  { href: CONFIG.github,               text: null },
+    'repos':        { href: CONFIG.repos,                text: null },
+    'linkedin':     { href: CONFIG.linkedin,             text: CONFIG.linkedinLabel },
+    'linkedin-hero':{ href: CONFIG.linkedin,             text: null }
+  };
 
-  document.querySelectorAll('.contact__list a').forEach(function (link) {
-    var href = link.getAttribute('href') || '';
-    if (href.indexOf('github.com') !== -1) {
-      link.setAttribute('href', CONFIG.github);
-      link.textContent = CONFIG.githubLabel;
-    } else if (href.indexOf('linkedin.com') !== -1) {
-      link.setAttribute('href', CONFIG.linkedin);
-      link.textContent = CONFIG.linkedinLabel;
-    }
-  });
-
-  // Links do hero: atualiza só o href (o conteúdo é um ícone SVG)
-  document.querySelectorAll('.hero__social a').forEach(function (link) {
-    var href = link.getAttribute('href') || '';
-    if (href.indexOf('github.com') !== -1) link.setAttribute('href', CONFIG.github);
-    else if (href.indexOf('linkedin.com') !== -1) link.setAttribute('href', CONFIG.linkedin);
-    else if (href.indexOf('mailto:') === 0) link.setAttribute('href', 'mailto:' + CONFIG.email);
-  });
-
-  document.querySelectorAll('a[href^="mailto:"]').forEach(function (link) {
-    if (link.getAttribute('href') === 'mailto:seu-email@exemplo.com') {
-      link.setAttribute('href', 'mailto:' + CONFIG.email);
-    }
+  document.querySelectorAll('[data-link]').forEach(function (el) {
+    var def = LINKS[el.getAttribute('data-link')];
+    if (!def) return;
+    el.setAttribute('href', def.href);
+    if (def.text) el.textContent = def.text;
   });
 
   // Localidade (opcional): só aparece se estiver preenchida no CONFIG

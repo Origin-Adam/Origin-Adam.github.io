@@ -14,39 +14,66 @@ Site estático pessoal, pronto para o **GitHub Pages**. Sem build, sem dependên
 
 ---
 
-## 1. O que você precisa preencher (obrigatório)
+## 1. Dados pessoais
 
-Abra `js/main.js` e edite o bloco `CONFIG` no topo:
+Os dados ficam centralizados no bloco `CONFIG` do topo de `js/main.js`:
 
 ```js
 var CONFIG = {
   nome: 'Adam Gabriel',
-  email: 'seu-email@exemplo.com',            // ← troque
-  github: 'https://github.com/SEU_USUARIO',   // ← troque
-  linkedin: 'https://linkedin.com/in/SEU_USUARIO', // ← troque
-  linkedinLabel: 'linkedin.com/in/SEU_USUARIO',
-  githubLabel: 'github.com/SEU_USUARIO',
-  localidade: ''   // ex.: 'Recife, PE' — se vazio, a linha não aparece
+  email: 'adamgabriel404@gmail.com',
+  github: 'https://github.com/Origin-Adam',
+  githubLabel: 'github.com/Origin-Adam',
+  repos: 'https://github.com/Origin-Adam?tab=repositories',
+  linkedin: 'https://www.linkedin.com/in/adam-gabriel-aa47402a7/',
+  linkedinLabel: 'linkedin.com/in/adam-gabriel-aa47402a7',
+  localidade: 'Salvador, BA'   // vazio '' => a linha some
 };
 ```
 
-O script aplica esses valores automaticamente nos links do header, do rodapé e da
-seção de contato — **não precisa editar o HTML para trocar e-mail/GitHub/LinkedIn**.
+O script aplica esses valores em todos os links do site. No `index.html`, cada link
+dependente do `CONFIG` tem um atributo `data-link="tipo"`:
 
-### Checklist
+| `data-link` | Onde aparece | Texto |
+|---|---|---|
+| `email-main` | seção Contato | substituído pelo e-mail |
+| `email-hero` | redes sociais do hero | — |
+| `github` | seção Contato | substituído pelo `githubLabel` |
+| `github-hero` | redes sociais do hero | — |
+| `repos` | seção Contato (link "Ver todos os projetos no GitHub") | mantido |
+| `linkedin` | seção Contato | substituído pelo `linkedinLabel` |
+| `linkedin-hero` | redes sociais do hero | — |
 
-- [ ] `CONFIG.email` — seu e-mail real
-- [ ] `CONFIG.github` — seu usuário do GitHub
-- [ ] `CONFIG.linkedin` — seu perfil do LinkedIn
-- [ ] `CONFIG.localidade` — sua cidade (opcional; a linha some se ficar vazio)
-- [ ] Seções **Experiência**: troque `AAAA — AAAA`, `Nome da Empresa` e as bullets em `index.html`
-- [ ] Blocos de `<li>` dentro de `.timeline__list` — apague os textos de exemplo
-- [ ] Habilidades: em `index.html`, ajuste as `<li>` dentro de `<ul class="tags">` para o que você realmente usa
-- [ ] Adicione sua foto: troque o monograma `AG` por `<img src="assets/foto.jpg" alt="Adam Gabriel">` no header
+> Se você trocar os links direto no `index.html`, lembre de atualizar o `CONFIG`
+> também — senão o JavaScript sobrescreve no próximo carregamento.
 
 ---
 
-## 2. Rodar localmente
+## 2. O que ainda precisa ser preenchido
+
+###[a] Timeline — Experiência
+
+Hoje está com a **VX Case** (cargo de Analista de E-Commerce, desde 14/07/2025) e os
+**projetos pessoais de Game Dev**. Falta:
+
+- **Trocar as bullets da VX Case** por resultados concretos. O texto atual é um
+  modelo coerente com o cargo, mas só você sabe o que realmente entregou.
+  Prefira números: *"automação que eliminou X horas/semana"*, *"Y casos de teste
+  escritos"*, *"Z SKUs gerenciados"*.
+- **Incluir etapas anteriores**, se tiver. No `index.html` há um bloco comentado
+  com o modelo de `<li>` pronto para copiar e colar dentro do `<ol class="timeline">`.
+
+###️ Checagem de conteúdo
+
+- [ ] Bullets da VX Case com resultados reais
+- [ ] Etapas anteriores adicionadas (se houver) — use o modelo comentado
+- [ ] Habilidades ajustadas ao seu stack real (`<ul class="tags">` em `index.html`)
+- [ ] Foto no lugar do monograma `AG` (no header, troque o `<span class="brand__mark">`
+      por `<img src="assets/foto.jpg" alt="Adam Gabriel">`)
+
+---
+
+## 3. Rodar localmente
 
 Basta abrir `index.html` no navegador. Para ficar mais parecido com o deploy:
 
@@ -60,7 +87,7 @@ Depois acesse `http://localhost:8000`.
 
 ---
 
-## 3. Publicar no GitHub Pages
+## 4. Publicar no GitHub Pages
 
 ```bash
 git init
@@ -86,7 +113,17 @@ O site fica no ar em `https://SEU_USUARIO.github.io` em ~1 minuto.
 
 ---
 
-## 4. Personalizar o visual
+## 5. Personalizar o visual
+
+O design é **sem bordas**: os cards não têm contorno nem fundo fixo — a hierarquia
+vem da tipografia, do espaçamento e de um fundo sutil que só aparece no hover.
+Para reintroduzir um card com borda, é só adicionar em `css/style.css`:
+
+```css
+.skill-card { border: 1px solid var(--border); background: var(--surface); padding: 26px; }
+```
+
+### Tokens
 
 Tudo está em custom properties no topo de `css/style.css`:
 
@@ -106,10 +143,6 @@ Tudo está em custom properties no topo de `css/style.css`:
 }
 ```
 
-Trocar `--accent` e `--accent-2` muda o site inteiro (botões, gradientes, timeline,
-ícones). O tema claro usa o mesmo bloco, com as variáveis sobrepostas em
-`[data-theme='light']`.
-
 ### Adicionar uma seção nova
 
 1. Copie um `<section class="section" id="...">` existente no `index.html`
@@ -118,12 +151,13 @@ Trocar `--accent` e `--accent-2` muda o site inteiro (botões, gradientes, timel
 
 ---
 
-## 5. Detalhes técnicos
+## 6. Detalhes técnicos
 
-- **Tema**: salvo em `localStorage` (`chave: "tema"`); sem salvo, segue o
+- **Tema**: salvo em `localStorage` (chave `"tema"`); sem salvo, segue o
   `prefers-color-scheme` do sistema. O script inline no `<head>` evita o "flash" branco.
 - **Acessibilidade**: skip-link, `aria-label`, `aria-expanded`, foco visível,
   `prefers-reduced-motion` respeitado (desliga animações).
+  Lighthouse: **100 / 100 / 100** (a11y, boas práticas, SEO) nos dois temas.
 - **Formulário**: abre o cliente de e-mail com a mensagem montada (`mailto:`), sem
   backend. Para receber no navegador, troque pelo Formspree — em `index.html`:
   `<form class="contact__form" id="contact-form" action="https://formspree.io/f/SEU_ID" method="POST">`
@@ -132,11 +166,11 @@ Trocar `--accent` e `--accent-2` muda o site inteiro (botões, gradientes, timel
 
 ---
 
-## 6. Checklist de lançamento
+## 7. Checklist de lançamento
 
-- [ ] Dados do `CONFIG` preenchidos
-- [ ] Textos da experiência reais (sem "AAAA — AAAA" ou "Nome da Empresa")
-- [ ] Habilidades ajustadas ao seu stack real
+- [ ] Bullets da VX Case com resultados concretos
+- [ ] Etapas anteriores na timeline (se houver)
+- [ ] Habilidades ajustadas ao stack real
 - [ ] Foto no lugar do monograma `AG`
 - [ ] `favicon.svg` gerado com suas iniciais (ou um ícone próprio)
 - [ ] Testado no celular
