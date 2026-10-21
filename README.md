@@ -9,6 +9,8 @@ Site estático pessoal, pronto para o **GitHub Pages**. Sem build, sem dependên
 ├── js/main.js               # tema, menu, animações, terminal, formulário
 ├── js/projects.js           # seção Projetos (API do GitHub) + curadoria
 ├── assets/favicon.svg       # ícone do site
+├── assets/foto-hero.jpg     # retrato no hero (480×480)
+├── assets/foto-avatar.jpg   # avatar do header (160×160)
 ├── .github/workflows/       # deploy automático no GitHub Pages
 ├── package.json             # script de desenvolvimento local
 ├── .nojekyll                # desliga o Jekyll do GitHub Pages
@@ -100,6 +102,20 @@ A API do GitHub permite **60 requisições/hora por IP** sem autenticação. Por
 Se algum dia o limite incomodar, dá para trocar por um proxy como o Vercel
 (`/api/github`) ou usar a API autenticada. Hoje não é necessário.
 
+### Trocar a foto
+
+Dois arquivos, dois usos:
+
+| Arquivo | Onde aparece | Tamanho |
+|---|---|---|
+| `assets/foto-hero.jpg` | retrato circular no hero | 480×480 |
+| `assets/foto-avatar.jpg` | avatar no header | 160×160 |
+
+Para trocar, basta substituir os dois arquivos mantendo os nomes. O hero usa
+`object-fit: cover` num container circular, então o enquadramento recomendado é
+**quadrado com o rosto no centro**. A imagem também é a `og:image` do site
+(apontando para `https://origin-adam.github.io/assets/foto-hero.jpg`).
+
 ### Quando os repositórios ficarem melhores
 
 Os nomes originais (`Trabalho-JS-atualizado`, `https-github.com-...`) foram gerados
@@ -142,8 +158,7 @@ Hoje está com a **VX Case** (cargo de Analista de E-Commerce, desde 14/07/2025)
 - [ ] Etapas anteriores adicionadas (se houver) — use o modelo comentado
 - [ ] Habilidades ajustadas ao seu stack real (`<ul class="tags">` em `index.html`)
 - [ ] Títulos/descrições dos repositórios revisados em `js/projects.js`
-- [ ] Foto no lugar do monograma `AG` (no header, troque o `<span class="brand__mark">`
-      por `<img src="assets/foto.jpg" alt="Adam Gabriel">`)
+- [ ] Foto trocada em `assets/foto-hero.jpg` e `assets/foto-avatar.jpg` (ver abaixo)
 
 ---
 
