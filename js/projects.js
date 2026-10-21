@@ -20,55 +20,65 @@
   */
   var PROJETOS = [
     {
-      repo: 'https-github.com-adamgabriel-projeto-web-uniruy',
+      repo: 'projeto-api',
+      titulo: 'Projeto API',
+      descricao: 'A versão mais recente do projeto do Uniruy, com a API e o front conversando.',
+      tags: ['PHP', 'API', 'Backend'],
+      destaque: true
+    },
+    {
+      repo: 'projeto-web-uniruy',
       titulo: 'Projeto Web Uniruy',
       descricao: 'Site institucional em HTML e CSS puro, com layout responsivo.',
       tags: ['HTML', 'CSS', 'Responsivo'],
       destaque: true
     },
     {
-      repo: 'https-github.com-adamgabriel-projeto-web-uniruy-atualizado',
-      titulo: 'Projeto Web Uniruy — versão atualizada',
+      repo: 'projeto-web-uniruy-v2',
+      titulo: 'Projeto Web Uniruy — v2',
       descricao: 'Refatoração do projeto web com ajustes de layout e acessibilidade.',
       tags: ['HTML', 'CSS']
     },
     {
-      repo: 'https-github.com-adamgabriel-projeto-web-uniruy-atualizado-2',
-      titulo: 'Projeto Web Uniruy — revisão final',
-      descricao: 'Segunda revisão do projeto, com foco em responsividade e boas práticas.',
-      tags: ['HTML', 'CSS']
-    },
-    {
-      repo: 'JS',
-      titulo: 'Projetos em JavaScript',
-      descricao: 'Exercícios e Scripts em JavaScript.',
-      tags: ['JavaScript', 'HTML']
-    },
-    {
-      repo: 'Trabalho-JS-Finalizado',
-      titulo: 'Trabalho JS — versão finalizada',
-      descricao: 'Exercício de JavaScript concluído.',
-      tags: ['JavaScript', 'PHP']
-    },
-    {
-      repo: 'Projeto-JS-Atualizado-Comentarios',
+      repo: 'projeto-js-comentarios',
       titulo: 'Projeto JS — sistema de comentários',
       descricao: 'Projeto com comentários dinâmicos.',
       tags: ['JavaScript', 'PHP']
     },
     {
-      repo: 'Trabalho-JS-atualizado',
+      repo: 'js-exercicios',
+      titulo: 'Projetos em JavaScript',
+      descricao: 'Exercícios e scripts em JavaScript.',
+      tags: ['JavaScript', 'HTML']
+    },
+    {
+      repo: 'trabalho-js-finalizado',
+      titulo: 'Trabalho JS — versão finalizada',
+      descricao: 'Exercício de JavaScript concluído.',
+      tags: ['JavaScript', 'PHP']
+    },
+    {
+      repo: 'trabalho-js-atualizado',
       titulo: 'Trabalho JS — versão atualizada',
       descricao: 'Exercício de JavaScript com revisões.',
       tags: ['JavaScript', 'PHP']
     },
     {
-      repo: 'Atividade-Python-faculdade',
+      repo: 'atividade-python-faculdade',
       titulo: 'Atividade Python (Faculdade)',
       descricao: 'Atividade acadêmica de Python.',
       tags: ['Python']
+    },
+    {
+      repo: 'skills-introduction-to-github',
+      titulo: 'GitHub Skills — Introduction to GitHub',
+      descricao: 'Curso introdutório de GitHub do GitHub Skills.',
+      tags: ['GitHub', 'Curso']
     }
   ];
+
+  /* Repositórios que nunca aparecem, mesmo com MOSTRAR_TODOS = true */
+  var EXCLUIDOS = ['Origin-Adam.github.io', 'Origin-Adam'];
 
   /* Quando true, aparece TODO repositório público (sem fork) que não esteja
      na lista PROJETOS. Útil para ir mostrando o que você for publicando.
@@ -80,8 +90,8 @@
      ======================================================= */
   var USUARIO = 'Origin-Adam';
   var API = 'https://api.github.com/users/' + USUARIO + '/repos?per_page=100&sort=updated';
-  var CACHE_KEY = 'portfolio:projetos';
-  var CACHE_TTL = 30 * 60 * 1000; // 30 minutos entre chamadas à API
+  var CACHE_KEY = 'portfolio:projetos:v2';
+  var CACHE_TTL = 15 * 60 * 1000; // 15 minutos entre chamadas à API
 
   /* Cores das linguagens mais comuns */
   var CORES = {
@@ -232,6 +242,7 @@
       lista.forEach(function (p) { jaListados[p.nome] = true; });
       repos.forEach(function (r) {
         if (r.fork || jaListados[r.name]) return;
+        if (EXCLUIDOS.indexOf(r.name) !== -1) return;
         lista.push({
           nome: r.name,
           titulo: r.name,

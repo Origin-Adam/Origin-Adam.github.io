@@ -65,15 +65,16 @@ Tudo é controlado no topo de `js/projects.js`:
 ```js
 var PROJETOS = [
   {
-    repo: 'https-github.com-adamgabriel-projeto-web-uniruy',
-    titulo: 'Projeto Web Uniruy',          // nome bonito (padrão: nome do repo)
-    descricao: 'Site institucional em HTML e CSS puro, com layout responsivo.',
-    tags: ['HTML', 'CSS', 'Responsivo'],
+    repo: 'projeto-api',                    // nome exato do repo no GitHub
+    titulo: 'Projeto API',                  // nome bonito (padrão: nome do repo)
+    descricao: 'A versão mais recente do projeto do Uniruy...',
+    tags: ['PHP', 'API', 'Backend'],
     destaque: true                          // card maior, ocupa 2 colunas
   },
   // ...outros
 ];
 
+var EXCLUIDOS = ['Origin-Adam.github.io', 'Origin-Adam'];
 var MOSTRAR_TODOS = false;
 ```
 
@@ -83,9 +84,10 @@ var MOSTRAR_TODOS = false;
 - `MOSTRAR_TODOS = true` — passa a exibir **todo** repositório público (sem fork)
   que não esteja na lista. Útil quando você começar a publicar os projetos de
   jogo e quiser que apareçam sozinhos.
+- `EXCLUIDOS` — repositórios que nunca aparecem (o próprio site e o de perfil).
 - Repositórios que você não listar ficam **ocultos** (com `MOSTRAR_TODOS = false`).
-  É assim que o repo de perfil (`Origin-Adam`), os exercícios de curso e o
-  projeto de outra pessoa ficam de fora.
+  É assim que o repo de perfil, os exercícios de curso e o projeto de outra
+  pessoa ficam de fora.
 
 ### Limite de requisições
 
@@ -100,12 +102,23 @@ Se algum dia o limite incomodar, dá para trocar por um proxy como o Vercel
 
 ### Quando os repositórios ficarem melhores
 
-Os nomes atuais (`Trabalho-JS-atualizado`, `https-github.com-...`) foram gerados
-automaticamente e não ajudam num portfólio. Duas opções:
+Os nomes originais (`Trabalho-JS-atualizado`, `https-github.com-...`) foram gerados
+automaticamente e não ajudavam num portfólio. **Todos foram renomeados** para nomes
+limpos, com descrição e *topics* configuradas no GitHub:
 
-1. **Renomear no GitHub** (recomendado) e atualizar o `repo` na curadoria.
-2. Manter o nome e deixar o `titulo`/`descricao` bonitarem a exibição — o que já
-   está feito.
+| Antes | Agora |
+|---|---|
+| `https-github.com-adamgabriel-projeto-web-uniruy` | `projeto-web-uniruy` |
+| `https-github.com-adamgabriel-projeto-web-uniruy-atualizado` | `projeto-web-uniruy-v2` |
+| `https-github.com-adamgabriel-projeto-web-uniruy-atualizado-2` | `projeto-api` |
+| `JS` | `js-exercicios` |
+| `Trabalho-JS-Finalizado` | `trabalho-js-finalizado` |
+| `Trabalho-JS-atualizado` | `trabalho-js-atualizado` |
+| `Projeto-JS-Atualizado-Comentarios` | `projeto-js-comentarios` |
+| `Atividade-Python-faculdade` | `atividade-python-faculdade` |
+
+> O GitHub mantém redirecionamento dos URLs antigos, então links já enviados
+> continuam funcionando.
 
 ---
 
@@ -152,29 +165,41 @@ python -m http.server 8000
 
 ## 5. Publicar no GitHub Pages
 
-### Passo 1 — criar o repositório
+> **Já está publicado:** https://origin-adam.github.io
+> Repositório: https://github.com/Origin-Adam/Origin-Adam.github.io
+> Deploy automático pelo workflow `.github/workflows/deploy.yml` a cada push na `main`.
 
-O repositório **precisa** se chamar `Origin-Adam.github.io` para o domínio raiz
-funcionar. Crie no GitHub **sem** README, sem `.gitignore` e sem licença
-(marcando as opções de inicialização).
-
-### Passo 2 — subir o código
+### Publicar de novo
 
 ```bash
+git add -A
+git commit -m "sua mensagem"
+git push
+```
+
+O workflow publica em ~30 segundos. Para republicar sem commit novo, use
+**Actions → Deploy to GitHub Pages → Run workflow**.
+
+### Criar o repositório (se ainda não existir)
+
+O repositório **precisa** se chamar `Origin-Adam.github.io` para o domínio raiz
+funcionar. Crie no GitHub **sem** README, sem `.gitignore` e sem licença.
+
+```bash
+gh repo create Origin-Adam/Origin-Adam.github.io --public \
+  --description "Portfolio de Adam Gabriel - Analista de E-Commerce, QA e Automacao"
+
 git remote add origin https://github.com/Origin-Adam/Origin-Adam.github.io.git
 git push -u origin main
 ```
 
-### Passo 3 — ativar o Pages
+### Ativar o Pages
 
-Você tem **duas opções**. Escolha uma:
-
-**Opção A — GitHub Actions (recomendado, já configurado)**
+**Opção A — GitHub Actions (a que está em uso)**
 
 1. Repo → **Settings** → **Pages**
 2. **Build and deployment** → Source: **GitHub Actions**
 3. Salve e vá em **Actions** → o workflow "Deploy to GitHub Pages" roda sozinho
-4. O site fica no ar em `https://origin-adam.github.io` em ~1 minuto
 
 > Cada `git push` na `main` republica o site. O workflow está em
 > `.github/workflows/deploy.yml` e não precisa de nenhum segredo.
