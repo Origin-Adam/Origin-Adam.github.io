@@ -1,0 +1,12 @@
+{
+  "name": "portfolio-adam-gabriel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfólio pessoal de Adam Gabriel — site estático pronto para o GitHub Pages",
+  "scripts": {
+    "start": "npx --yes serve -l 4173 .",
+    "dev": "npx --yes serve -l 4173 ."
+  },
+  "keywords": ["portfolio", "github-pages", "static-site"],
+  "license": "MIT"
+}
