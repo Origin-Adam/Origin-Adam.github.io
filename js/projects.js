@@ -18,67 +18,43 @@
      destaque   : true = card maior, ocupa 2 colunas
      link       : url alternativa (ex.: a demo do projeto)
   */
+  /* Os repositórios trabalho-js-*, js-exercicios e projeto-web-uniruy-v2 são
+     versões intermediárias do ByteShop — ficam de fora para não repetir o projeto. */
   var PROJETOS = [
     {
-      repo: 'projeto-api',
-      titulo: 'Projeto API',
-      descricao: 'A versão mais recente do projeto do Uniruy, com a API e o front conversando.',
-      tags: ['PHP', 'API', 'Backend'],
+      repo: 'projeto-js-comentarios',
+      titulo: 'ByteShop — e-commerce completo em PHP',
+      descricao: 'Loja com login (bcrypt), catálogo com filtros, carrinho, frete via ViaCEP, ' +
+        'checkout com transação ACID, QR Code PIX por pedido e dashboard de vendas no Looker Studio.',
+      tags: ['MVC', 'MySQL', 'APIs', 'Looker Studio'],
       destaque: true
+    },
+    {
+      repo: 'projeto-api',
+      titulo: 'ByteShop — versão com documentação',
+      descricao: 'A primeira arquitetura do ByteShop, com camada DAO, diagramas UML, ' +
+        'casos de uso e integração com duas APIs externas.',
+      tags: ['MySQL', 'UML', 'Requisitos']
     },
     {
       repo: 'projeto-web-uniruy',
-      titulo: 'Projeto Web Uniruy',
-      descricao: 'Site institucional em HTML e CSS puro, com layout responsivo.',
-      tags: ['HTML', 'CSS', 'Responsivo'],
-      destaque: true
-    },
-    {
-      repo: 'projeto-web-uniruy-v2',
-      titulo: 'Projeto Web Uniruy — v2',
-      descricao: 'Refatoração do projeto web com ajustes de layout e acessibilidade.',
-      tags: ['HTML', 'CSS']
-    },
-    {
-      repo: 'projeto-js-comentarios',
-      titulo: 'Projeto JS — sistema de comentários',
-      descricao: 'Projeto com comentários dinâmicos.',
-      tags: ['JavaScript', 'PHP']
-    },
-    {
-      repo: 'js-exercicios',
-      titulo: 'Projetos em JavaScript',
-      descricao: 'Exercícios e scripts em JavaScript.',
-      tags: ['JavaScript', 'HTML']
-    },
-    {
-      repo: 'trabalho-js-finalizado',
-      titulo: 'Trabalho JS — versão finalizada',
-      descricao: 'Exercício de JavaScript concluído.',
-      tags: ['JavaScript', 'PHP']
-    },
-    {
-      repo: 'trabalho-js-atualizado',
-      titulo: 'Trabalho JS — versão atualizada',
-      descricao: 'Exercício de JavaScript com revisões.',
-      tags: ['JavaScript', 'PHP']
+      titulo: 'ByteShop — front-end',
+      descricao: 'O ponto de partida: vitrine em HTML e CSS puro, responsiva, sem framework.',
+      tags: ['CSS', 'Responsivo']
     },
     {
       repo: 'atividade-python-faculdade',
-      titulo: 'Atividade Python (Faculdade)',
-      descricao: 'Atividade acadêmica de Python.',
-      tags: ['Python']
-    },
-    {
-      repo: 'skills-introduction-to-github',
-      titulo: 'GitHub Skills — Introduction to GitHub',
-      descricao: 'Curso introdutório de GitHub do GitHub Skills.',
-      tags: ['GitHub', 'Curso']
+      titulo: 'Algoritmos em Python',
+      descricao: 'Exercícios de lógica e algoritmos da graduação.',
+      tags: ['Algoritmos']
     }
   ];
 
   /* Repositórios que nunca aparecem, mesmo com MOSTRAR_TODOS = true */
-  var EXCLUIDOS = ['Origin-Adam.github.io', 'Origin-Adam'];
+  var EXCLUIDOS = [
+    'Origin-Adam.github.io', 'Origin-Adam', 'skills-introduction-to-github',
+    'trabalho-js-finalizado', 'trabalho-js-atualizado', 'js-exercicios', 'projeto-web-uniruy-v2'
+  ];
 
   /* Quando true, aparece TODO repositório público (sem fork) que não esteja
      na lista PROJETOS. Útil para ir mostrando o que você for publicando.
@@ -90,7 +66,7 @@
      ======================================================= */
   var USUARIO = 'Origin-Adam';
   var API = 'https://api.github.com/users/' + USUARIO + '/repos?per_page=100&sort=updated';
-  var CACHE_KEY = 'portfolio:projetos:v2';
+  var CACHE_KEY = 'portfolio:projetos:v3';
   var CACHE_TTL = 15 * 60 * 1000; // 15 minutos entre chamadas à API
 
   /* Cores das linguagens mais comuns */
@@ -163,7 +139,10 @@
   function card(repo) {
     var lang = repo.language;
     var cor = (lang && CORES[lang]) || COR_PADRAO;
-    var tags = (repo.tags || []).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
+    // a linguagem já aparece no rodapé do card; não repete como tag
+    var tags = (repo.tags || [])
+      .filter(function (t) { return !lang || t.toLowerCase() !== lang.toLowerCase(); })
+      .map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
 
     var meta = [];
     if (lang) {
@@ -174,9 +153,6 @@
     }
     if (repo.forks) {
       meta.push('<span class="project__stat">' + iconeFork() + repo.forks + '</span>');
-    }
-    if (repo.atualizado) {
-      meta.push('<span class="project__date">atualizado em ' + esc(repo.atualizado) + '</span>');
     }
 
     return '' +

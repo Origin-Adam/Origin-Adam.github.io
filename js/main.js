@@ -138,14 +138,13 @@
 
   var LINHAS = [
     { t: 'p', v: '$ whoami' },
-    { t: 'm', v: 'adam.gabriel — analista de e-commerce' },
-    { t: 'p', v: '$ cat stack.txt' },
-    { t: 's', v: 'e-commerce · n8n · QA · SQL · APIs' },
-    { t: 'm', v: 'Godot · Unity · Unreal Engine 5' },
-    { t: 'p', v: '$ echo $mission' },
-    { t: 'g', v: '"automatizar o repetitivo, entregar o confiável"' },
-    { t: 'p', v: '$ status --verbose' },
-    { t: 'm', v: 'disponível para novos projetos ✓' }
+    { t: 'm', v: 'adam.gabriel — automação & QA p/ e-commerce' },
+    { t: 'p', v: '$ n8n workflow:list' },
+    { t: 's', v: 'pedidos · catálogo · relatórios de venda' },
+    { t: 'p', v: '$ qa run --release' },
+    { t: 'g', v: 'casos de teste ok → liberado p/ produção ✓' },
+    { t: 'p', v: '$ status' },
+    { t: 'm', v: 'aberto a vagas e freelas' }
   ];
 
   function criarLinha(tipo, texto) {
