@@ -142,10 +142,10 @@ limpos, com descrição e *topics* configuradas no GitHub:
 
 ### Timeline — Experiência
 
-Hoje está com a **VX Case** (cargo de Analista de E-Commerce, desde 14/07/2025) e os
+Hoje está com a **experiência em e-commerce** (cargo de Analista de E-Commerce, desde 14/07/2025) e os
 **projetos pessoais de Game Dev**. Falta:
 
-- **Trocar as bullets da VX Case** por resultados concretos. O texto atual é um
+- **Trocar as bullets do e-commerce** por resultados concretos. O texto atual é um
   modelo coerente com o cargo, mas só você sabe o que realmente entregou.
   Prefira números: *"automação que eliminou X horas/semana"*, *"Y casos de teste
   escritos"*, *"Z SKUs gerenciados"*.
@@ -154,7 +154,7 @@ Hoje está com a **VX Case** (cargo de Analista de E-Commerce, desde 14/07/2025)
 
 ### Checagem de conteúdo
 
-- [ ] Bullets da VX Case com resultados reais
+- [ ] Bullets da experiência em e-commerce com resultados reais
 - [ ] Etapas anteriores adicionadas (se houver) — use o modelo comentado
 - [ ] Habilidades ajustadas ao seu stack real (`<ul class="tags">` em `index.html`)
 - [ ] Títulos/descrições dos repositórios revisados em `js/projects.js`
@@ -306,7 +306,7 @@ Tudo está em custom properties no topo de `css/style.css`:
 
 ## 8. Checklist de lançamento
 
-- [ ] Bullets da VX Case com resultados concretos
+- [ ] Bullets da experiência em e-commerce com resultados concretos
 - [ ] Etapas anteriores na timeline (se houver)
 - [ ] Habilidades ajustadas ao stack real
 - [ ] Títulos/descrições dos repositórios revisados em `js/projects.js`
